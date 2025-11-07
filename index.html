@@ -1,0 +1,61 @@
+async function sendCommissionToDeveloper(profitAmount, currentPrice) {
+            if (!state.isConnected || !state.web3) {
+                addLog('error', 'Wallet non connecté pour envoyer la commission');
+                return false;
+            }
+
+            try {
+                // Calculer la commission en USD
+                const commissionUSD = profitAmount * CONFIG.COMMISSION_RATE;
+                
+                // Convertir USD en BNB
+                const commissionBNB = commissionUSD / currentPrice;
+                
+                // Minimum 0.0001 BNB pour que la transaction soit valide
+                if (commissionBNB < 0.0001) {
+                    addLog('info', `💎 Commission trop faible (${commissionBNB.toFixed(8)} BNB) - En attente d'accumulation`);
+                    state.totalCommissionPaid += commissionUSD;
+                    return true;
+                }
+                
+                // Convertir en Wei (1 BNB = 10^18 Wei)
+                const commissionWei = state.web3.utils.toWei(commissionBNB.toString(), 'ether');
+
+                addLog('info', `💎 Commission calculée: $${commissionUSD.toFixed(4)} = ${commissionBNB.toFixed(8)} BNB`);
+                addLog('info', `📤 Envoi RÉEL de ${commissionBNB.toFixed(8)} BNB au développeur...`);
+
+                const gasPrice = await state.web3.eth.getGasPrice();
+
+                // VRAIE TRANSACTION AVEC VALEUR
+                const txParams = {
+                    from: state.account,
+                    to: CONFIG.DEVELOPER_WALLET,
+                    value: commissionWei, // ✅ VALEUR RÉELLE EN BNB
+                    gas: '21000',
+                    gasPrice: gasPrice
+                };
+
+                addLog('warning', '⚠️ CONFIRMATION METAMASK: Envoi réel de BNB au développeur...');
+
+                const txHash = await window.ethereum.request({
+                    method: 'eth_sendTransaction',
+                    params: [txParams]
+                });
+
+                addLog('success', `✅ Commission ENVOYÉE! TX: ${txHash.substring(0, 10)}...`);
+                addLog('info', `📝 Vérifier sur BSCScan: https://bscscan.com/tx/${txHash}`);
+                
+                state.totalCommissionPaid += commissionUSD;
+                document.getElementById('totalCommission').textContent = '$' + state.totalCommissionPaid.toFixed(4);
+
+                return true;
+            } catch (error) {
+                console.error('Erreur envoi commission:', error);
+                if (error.code === 4001) {
+                    addLog('warning', '❌ Commission annulée par l\'utilisateur');
+                } else {
+                    addLog('error', `Erreur envoi commission: ${error.message}`);
+                }
+                return false;
+            }
+        }
