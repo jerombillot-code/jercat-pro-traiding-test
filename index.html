@@ -1,1 +1,63 @@
 
+// ===== COMMISSION SYSTEM (FIXED) =====
+        async function sendCommissionToDeveloper(profitAmount, currentPrice) {
+            if (!state.isConnected || !state.web3) {
+                addLog('error', 'Wallet non connecté pour envoyer la commission');
+                return false;
+            }
+
+            try {
+                // Calculer la commission en USD
+                const commissionUSD = profitAmount * CONFIG.COMMISSION_RATE;
+                
+                // ✅ CORRECTION: Convertir USD en BNB en utilisant le prix actuel
+                const commissionBNB = commissionUSD / currentPrice;
+                
+                // Vérifier que le montant est > 0
+                if (commissionBNB <= 0) {
+                    addLog('warning', 'Commission trop faible pour être envoyée');
+                    return false;
+                }
+                
+                // Convertir en Wei (avec validation)
+                const commissionWei = state.web3.utils.toWei(commissionBNB.toFixed(18), 'ether');
+
+                addLog('info', `💎 Calcul commission: $${commissionUSD.toFixed(4)} = ${commissionBNB.toFixed(8)} BNB`);
+                addLog('info', `📤 Envoi de ${commissionBNB.toFixed(8)} BNB au développeur...`);
+
+                // ✅ FIX: Utiliser le format hexadécimal pour MetaMask
+                const txParams = {
+                    from: state.account,
+                    to: CONFIG.DEVELOPER_WALLET,
+                    value: '0x' + BigInt(commissionWei).toString(16),
+                    gas: '0x5208', // 21000 en hex
+                    data: '0x' // Data vide pour transfert simple
+                };
+
+                addLog('warning', '⚠️ Confirmation requise dans MetaMask pour la commission...');
+                console.log('Sending commission tx:', txParams);
+
+                const txHash = await window.ethereum.request({
+                    method: 'eth_sendTransaction',
+                    params: [txParams]
+                });
+
+                addLog('success', `✅ Commission envoyée! TX: ${txHash.substring(0, 10)}...`);
+                addLog('info', `📝 Voir sur BSCScan: https://bscscan.com/tx/${txHash}`);
+                
+                state.totalCommissionPaid += commissionUSD;
+                document.getElementById('totalCommission').textContent = '$' + state.totalCommissionPaid.toFixed(4);
+
+                return true;
+            } catch (error) {
+                console.error('Erreur envoi commission:', error);
+                if (error.code === 4001) {
+                    addLog('warning', '❌ Commission annulée par l\'utilisateur');
+                } else if (error.code === -32603) {
+                    addLog('error', '❌ Erreur interne MetaMask - Vérifiez votre balance');
+                } else {
+                    addLog('error', `Erreur envoi commission: ${error.message}`);
+                }
+                return false;
+            }
+        }
