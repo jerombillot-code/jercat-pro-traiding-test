@@ -611,21 +611,35 @@
         // ===== WALLET CONNECTION =====
         async function connectWallet() {
             if (typeof window.ethereum === 'undefined') {
+                addLog('error', 'MetaMask non détecté!');
                 alert('MetaMask non détecté! Installez MetaMask pour continuer.');
                 window.open('https://metamask.io/download/', '_blank');
                 return;
             }
 
             try {
+                addLog('info', '🔄 Connexion à MetaMask...');
+
+                // Request account access
                 const accounts = await window.ethereum.request({ 
                     method: 'eth_requestAccounts' 
                 });
                 
-                state.account = accounts[0];
-                state.web3 = new Web3(window.ethereum);
+                if (!accounts || accounts.length === 0) {
+                    addLog('error', 'Aucun compte trouvé');
+                    return;
+                }
 
-                // Check if on BSC
+                state.account = accounts[0];
+                addLog('success', `✅ Compte détecté: ${state.account.substring(0, 6)}...`);
+
+                // Initialize Web3
+                state.web3 = new Web3(window.ethereum);
+                addLog('info', '🔧 Web3 initialisé');
+
+                // Check current network
                 const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                addLog('info', `🌐 Réseau actuel: ${chainId}`);
                 
                 if (chainId !== CONFIG.CHAIN_ID) {
                     addLog('warning', '⚠️ Mauvais réseau! Changement vers BSC Mainnet...');
@@ -634,28 +648,53 @@
                             method: 'wallet_switchEthereumChain',
                             params: [{ chainId: CONFIG.CHAIN_ID }],
                         });
+                        addLog('success', '✅ Réseau changé vers BSC');
                     } catch (switchError) {
                         if (switchError.code === 4902) {
-                            await window.ethereum.request({
-                                method: 'wallet_addEthereumChain',
-                                params: [{
-                                    chainId: CONFIG.CHAIN_ID,
-                                    chainName: 'BSC Mainnet',
-                                    nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
-                                    rpcUrls: ['https://bsc-dataseed.binance.org/'],
-                                    blockExplorerUrls: ['https://bscscan.com']
-                                }]
-                            });
+                            addLog('info', '📝 Ajout du réseau BSC...');
+                            try {
+                                await window.ethereum.request({
+                                    method: 'wallet_addEthereumChain',
+                                    params: [{
+                                        chainId: CONFIG.CHAIN_ID,
+                                        chainName: 'BSC Mainnet',
+                                        nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
+                                        rpcUrls: ['https://bsc-dataseed.binance.org/'],
+                                        blockExplorerUrls: ['https://bscscan.com']
+                                    }]
+                                });
+                                addLog('success', '✅ Réseau BSC ajouté');
+                            } catch (addError) {
+                                addLog('error', 'Erreur ajout réseau: ' + addError.message);
+                                return;
+                            }
+                        } else if (switchError.code === 4001) {
+                            addLog('warning', 'Changement de réseau annulé');
+                            return;
+                        } else {
+                            addLog('error', 'Erreur changement réseau: ' + switchError.message);
+                            return;
                         }
                     }
                 }
 
                 // Initialize contracts
-                state.routerContract = new state.web3.eth.Contract(ROUTER_ABI, CONFIG.PANCAKE_ROUTER);
-                state.usdtContract = new state.web3.eth.Contract(ERC20_ABI, CONFIG.USDT);
+                try {
+                    state.routerContract = new state.web3.eth.Contract(ROUTER_ABI, CONFIG.PANCAKE_ROUTER);
+                    state.usdtContract = new state.web3.eth.Contract(ERC20_ABI, CONFIG.USDT);
+                    addLog('success', '✅ Contrats initialisés');
+                } catch (contractError) {
+                    addLog('error', 'Erreur contrats: ' + contractError.message);
+                    return;
+                }
 
                 // Get balances
-                await updateBalances();
+                try {
+                    await updateBalances();
+                    addLog('success', `💰 Balances: ${state.bnbBalance.toFixed(4)} BNB, ${state.usdtBalance.toFixed(2)} USDT`);
+                } catch (balanceError) {
+                    addLog('warning', 'Erreur lecture balances: ' + balanceError.message);
+                }
 
                 state.isConnected = true;
 
@@ -666,33 +705,55 @@
                 document.getElementById('walletAddress').textContent = state.account;
                 document.getElementById('statusIndicator').className = 'status-indicator online';
 
-                addLog('success', `✅ Wallet connecté: ${state.account.substring(0, 6)}...${state.account.substring(38)}`);
-                addLog('info', `🌐 Réseau: BSC Mainnet`);
-                addLog('info', `💰 BNB: ${state.bnbBalance.toFixed(4)}, USDT: ${state.usdtBalance.toFixed(2)}`);
+                addLog('success', '🎉 Connexion réussie!');
 
                 // Check approval
-                await checkApproval();
+                try {
+                    await checkApproval();
+                } catch (approvalError) {
+                    addLog('warning', 'Erreur vérification approbation: ' + approvalError.message);
+                }
 
             } catch (error) {
                 console.error('Error connecting wallet:', error);
-                addLog('error', 'Erreur connexion: ' + error.message);
+                
+                if (error.code === 4001) {
+                    addLog('warning', '❌ Connexion refusée par l\'utilisateur');
+                } else if (error.code === -32002) {
+                    addLog('warning', '⏳ Demande de connexion déjà en cours. Vérifiez MetaMask!');
+                } else {
+                    addLog('error', 'Erreur: ' + error.message);
+                }
             }
         }
 
         async function updateBalances() {
+            if (!state.web3 || !state.account) {
+                addLog('warning', 'Web3 ou compte non initialisé');
+                return;
+            }
+
             try {
                 // Get BNB balance
                 const bnbWei = await state.web3.eth.getBalance(state.account);
                 state.bnbBalance = parseFloat(state.web3.utils.fromWei(bnbWei, 'ether'));
                 
                 // Get USDT balance
-                const usdtWei = await state.usdtContract.methods.balanceOf(state.account).call();
-                state.usdtBalance = parseFloat(state.web3.utils.fromWei(usdtWei, 'ether'));
+                if (state.usdtContract) {
+                    const usdtWei = await state.usdtContract.methods.balanceOf(state.account).call();
+                    state.usdtBalance = parseFloat(state.web3.utils.fromWei(usdtWei, 'ether'));
+                }
 
-                document.getElementById('bnbBalance').textContent = state.bnbBalance.toFixed(4);
-                document.getElementById('usdtBalance').textContent = state.usdtBalance.toFixed(2);
+                // Update UI
+                if (document.getElementById('bnbBalance')) {
+                    document.getElementById('bnbBalance').textContent = state.bnbBalance.toFixed(4);
+                }
+                if (document.getElementById('usdtBalance')) {
+                    document.getElementById('usdtBalance').textContent = state.usdtBalance.toFixed(2);
+                }
             } catch (error) {
                 console.error('Error updating balances:', error);
+                addLog('warning', 'Erreur mise à jour balances: ' + error.message);
             }
         }
 
