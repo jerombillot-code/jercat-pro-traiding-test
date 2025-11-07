@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JERCAT Pro Trading Bot - Professional Edition (FIXED v2)</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐱%3C/text%3E%3C/svg%3E">
+    <title>JERCAT Pro Trading Bot</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
@@ -16,14 +15,11 @@
             --accent-blue: #3b82f6;
             --accent-purple: #8b5cf6;
             --accent-green: #10b981;
-            --accent-yellow: #f59e0b;
             --accent-red: #ef4444;
             --text-primary: #f9fafb;
             --text-secondary: #d1d5db;
             --text-muted: #9ca3af;
             --border: #374151;
-            --glass-bg: rgba(17, 24, 39, 0.6);
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         * {
@@ -33,34 +29,16 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.5;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
-            z-index: 0;
-            animation: bgFloat 20s ease infinite;
-        }
-
-        @keyframes bgFloat {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.7; }
         }
 
         .container {
-            max-width: 1920px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 1.5rem;
-            position: relative;
-            z-index: 1;
+            padding: 2rem;
         }
 
         .header {
@@ -70,76 +48,17 @@
 
         .header h1 {
             font-size: 2.5rem;
-            font-weight: 700;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .header-subtitle {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        .fix-badge {
-            display: inline-block;
-            background: var(--accent-green);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
-
-        .top-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
         }
 
         .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
+            background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-radius: 0.75rem;
             padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .card-header h2 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.5rem;
             margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 1200px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
         }
 
         .btn {
@@ -147,23 +66,13 @@
             border-radius: 0.5rem;
             border: none;
             font-weight: 600;
-            font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            justify-content: center;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            background: var(--accent-blue);
             color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -10px var(--accent-blue);
         }
 
         .btn-success {
@@ -176,129 +85,27 @@
             color: white;
         }
 
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .btn:hover {
+            transform: translateY(-2px);
         }
 
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-input, .form-select {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            color: var(--text-primary);
-            font-size: 0.875rem;
-        }
-
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-        }
-
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-        }
-
-        .stat-item {
+        .wallet-info {
             background: var(--bg-tertiary);
             padding: 1rem;
             border-radius: 0.5rem;
-            border: 1px solid var(--border);
+            margin-top: 1rem;
+            display: none;
         }
 
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 0.25rem;
-        }
-
-        .stat-value.green {
-            color: var(--accent-green);
-        }
-
-        .stat-value.red {
-            color: var(--accent-red);
-        }
-
-        .stat-value.blue {
-            color: var(--accent-blue);
-        }
-
-        .trades-table {
-            width: 100%;
-            border-collapse: collapse;
+        .wallet-address {
+            font-family: monospace;
             font-size: 0.875rem;
-        }
-
-        .trades-table th {
-            background: var(--bg-tertiary);
-            padding: 0.75rem;
-            text-align: left;
-            font-weight: 600;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .trades-table td {
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .trades-table tr:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .badge.success {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--accent-green);
-        }
-
-        .badge.danger {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--accent-red);
-        }
-
-        .badge.warning {
-            background: rgba(245, 158, 11, 0.2);
-            color: var(--accent-yellow);
-        }
-
-        .badge.info {
-            background: rgba(59, 130, 246, 0.2);
             color: var(--accent-blue);
+            word-break: break-all;
         }
 
         .log-container {
-            max-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
             background: var(--bg-tertiary);
             border-radius: 0.5rem;
@@ -310,14 +117,6 @@
             margin-bottom: 0.5rem;
             border-radius: 0.25rem;
             font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .log-entry.info {
-            background: rgba(59, 130, 246, 0.1);
-            border-left: 3px solid var(--accent-blue);
         }
 
         .log-entry.success {
@@ -325,102 +124,46 @@
             border-left: 3px solid var(--accent-green);
         }
 
-        .log-entry.warning {
-            background: rgba(245, 158, 11, 0.1);
-            border-left: 3px solid var(--accent-yellow);
-        }
-
         .log-entry.error {
             background: rgba(239, 68, 68, 0.1);
             border-left: 3px solid var(--accent-red);
         }
 
-        .log-time {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--bg-tertiary);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 0.5rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-            transition: width 0.3s;
-        }
-
-        .signal-indicators {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .signal-indicator {
-            background: var(--bg-tertiary);
-            padding: 0.5rem;
-            border-radius: 0.375rem;
-            text-align: center;
-            font-size: 0.75rem;
-        }
-
-        .signal-indicator.active {
-            background: rgba(16, 185, 129, 0.2);
-            border: 1px solid var(--accent-green);
-        }
-
-        .signal-indicator.inactive {
-            opacity: 0.5;
-        }
-
-        .mode-description {
-            background: var(--bg-tertiary);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            margin-top: 1rem;
+        .log-entry.info {
+            background: rgba(59, 130, 246, 0.1);
             border-left: 3px solid var(--accent-blue);
         }
 
-        #priceChart {
-            max-height: 300px;
+        .log-entry.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid #f59e0b;
         }
 
-        .wallet-info {
-            background: var(--bg-tertiary);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .wallet-address {
-            font-family: 'Courier New', monospace;
-            font-size: 0.75rem;
-            color: var(--accent-blue);
-            word-break: break-all;
-        }
-
-        .status-indicator {
+        .status-dot {
             display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             margin-right: 0.5rem;
         }
 
-        .status-indicator.online {
+        .status-dot.online {
             background: var(--accent-green);
-            box-shadow: 0 0 8px var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
         }
 
-        .status-indicator.offline {
+        .status-dot.offline {
             background: var(--text-muted);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
         }
 
         .grid-2 {
@@ -428,402 +171,176 @@
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
         }
-
-        @media (max-width: 768px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
             <h1>🐱 JERCAT Pro Trading Bot</h1>
-            <p class="header-subtitle">
-                Professional Automated Trading System with Real Blockchain Transactions
-                <span class="fix-badge">✅ FIXED v2 - MetaMask Ready</span>
-            </p>
+            <p style="color: var(--text-muted);">Professional Trading Bot with MetaMask Integration</p>
         </div>
 
-        <!-- Top Bar - Wallet & Stats -->
-        <div class="top-bar">
-            <!-- Wallet Connection -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>🔗 Wallet Connection</h2>
-                    <span class="status-indicator offline" id="statusIndicator"></span>
-                </div>
-                <button class="btn btn-primary" id="connectWalletBtn" style="width: 100%;">
-                    🔗 Connecter MetaMask
-                </button>
-                <button class="btn btn-danger" id="disconnectWalletBtn" style="width: 100%; display: none;">
-                    🔌 Déconnecter
-                </button>
-                <div class="wallet-info" id="walletInfo" style="display: none;">
-                    <div style="margin-bottom: 0.5rem;">
-                        <strong>Adresse:</strong>
-                        <div class="wallet-address" id="walletAddress"></div>
-                    </div>
-                    <div style="margin-bottom: 0.5rem;">
-                        <strong>Réseau:</strong>
-                        <span id="networkName">Non connecté</span>
-                    </div>
-                    <div>
-                        <strong>Balance:</strong>
-                        <span id="walletBalance">0</span> BNB
-                    </div>
-                </div>
-            </div>
-
-            <!-- Global Stats -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>📊 Statistiques Globales</h2>
-                </div>
-                <div class="stat-grid">
-                    <div class="stat-item">
-                        <div class="stat-label">Total P&L</div>
-                        <div class="stat-value" id="totalProfitLoss">$0.00</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Win Rate</div>
-                        <div class="stat-value blue" id="winRate">0%</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Total Trades</div>
-                        <div class="stat-value blue" id="totalTrades">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Commission</div>
-                        <div class="stat-value" id="totalCommission">$0.0000</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Dashboard -->
-        <div class="dashboard">
-            <!-- Left Column - Charts & Controls -->
-            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                <!-- Trading Controls -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>⚙️ Configuration de Trading</h2>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Paire de Trading</label>
-                        <select class="form-select" id="tradingPair">
-                            <option value="BNB/USDT">BNB/USDT</option>
-                            <option value="BTC/USDT">BTC/USDT</option>
-                            <option value="ETH/USDT">ETH/USDT</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Mode de Trading</label>
-                        <select class="form-select" id="tradingMode">
-                            <option value="SCALPING">⚡ Scalping (0.2-1%)</option>
-                            <option value="DAY" selected>📊 Day Trading (2-5%)</option>
-                            <option value="SWING">📈 Swing Trading (5-15%)</option>
-                        </select>
-                        <div class="mode-description" id="modeDescription"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Montant d'Investissement ($)</label>
-                        <input type="number" class="form-input" id="investmentAmount" value="100" min="10" step="10">
-                    </div>
-
-                    <div class="grid-2">
-                        <button class="btn btn-success" id="startTradingBtn">
-                            ▶️ Démarrer Bot
-                        </button>
-                        <button class="btn btn-danger" id="stopTradingBtn" style="display: none;">
-                            ⏸️ Arrêter Bot
-                        </button>
-                    </div>
-
-                    <div class="grid-2" style="margin-top: 1rem;">
-                        <button class="btn btn-primary" id="manualBuyBtn">
-                            📈 Achat Manuel
-                        </button>
-                        <button class="btn btn-danger" id="manualSellBtn">
-                            📉 Vente Manuelle
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Price Chart -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>📈 Graphique de Prix</h2>
-                        <span id="currentPriceDisplay">$0.00</span>
-                    </div>
-                    <canvas id="priceChart"></canvas>
-                </div>
-
-                <!-- DCA Mode -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>💰 Mode DCA (Dollar Cost Averaging)</h2>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Montant par achat ($)</label>
-                        <input type="number" class="form-input" id="dcaAmount" value="5" min="1" step="1">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Intervalle (secondes)</label>
-                        <input type="number" class="form-input" id="dcaInterval" value="300" min="60" step="60">
-                    </div>
-
-                    <div class="stat-grid" style="margin-bottom: 1rem;">
-                        <div class="stat-item">
-                            <div class="stat-label">Achats</div>
-                            <div class="stat-value blue" id="dcaPurchases">0</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Prix Moy.</div>
-                            <div class="stat-value" id="dcaAvgPrice">$0.00</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Total Investi</div>
-                            <div class="stat-value" id="dcaTotalInvested">$0.00</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">ROI</div>
-                            <div class="stat-value" id="dcaROI">0%</div>
-                        </div>
-                    </div>
-
-                    <div class="grid-2">
-                        <button class="btn btn-success" id="startDcaBtn">
-                            ▶️ Démarrer DCA
-                        </button>
-                        <button class="btn btn-danger" id="stopDcaBtn" style="display: none;">
-                            ⏸️ Arrêter DCA
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column - Signals & Logs -->
-            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                <!-- Market Analysis -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>📊 Analyse du Marché</h2>
-                    </div>
-                    <div class="stat-grid">
-                        <div class="stat-item">
-                            <div class="stat-label">Prix</div>
-                            <div class="stat-value blue" id="currentPrice">$0.00</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">24h Change</div>
-                            <div class="stat-value" id="priceChange24h">0%</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Volume 24h</div>
-                            <div class="stat-value blue" id="volume24h">0</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">RSI (14)</div>
-                            <div class="stat-value" id="rsiValue">50</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Signal Strength -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>🎯 Force du Signal</h2>
-                    </div>
-                    <div style="text-align: center; margin-bottom: 1rem;">
-                        <div class="stat-value blue" id="signalStrength">0/7</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="signalProgress" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="signal-indicators">
-                        <div class="signal-indicator" id="signal-rsi">
-                            <div>📊 RSI</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-trend">
-                            <div>📈 Trend</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-volume">
-                            <div>📊 Volume</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-momentum">
-                            <div>⚡ Momentum</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-ema">
-                            <div>📉 EMA</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-volatility">
-                            <div>🌊 Volatility</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-support">
-                            <div>🎯 S/R</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Activity Log -->
-                <div class="card" style="flex: 1;">
-                    <div class="card-header">
-                        <h2>📝 Journal d'Activité</h2>
-                        <button class="btn" onclick="clearLogs()" style="padding: 0.5rem 1rem; background: var(--bg-tertiary);">
-                            🗑️ Effacer
-                        </button>
-                    </div>
-                    <div class="log-container" id="logContainer"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Trades History -->
+        <!-- Wallet Card -->
         <div class="card">
-            <div class="card-header">
-                <h2>📊 Historique des Trades</h2>
+            <h2 style="margin-bottom: 1rem;">
+                <span class="status-dot offline" id="statusDot"></span>
+                Wallet Connection
+            </h2>
+            <button class="btn btn-primary" id="connectBtn" style="width: 100%;">
+                🔗 Connecter MetaMask
+            </button>
+            <button class="btn btn-danger" id="disconnectBtn" style="width: 100%; display: none;">
+                🔌 Déconnecter
+            </button>
+            <div class="wallet-info" id="walletInfo">
+                <div style="margin-bottom: 0.5rem;">
+                    <strong>Adresse:</strong>
+                    <div class="wallet-address" id="walletAddress"></div>
+                </div>
+                <div style="margin-bottom: 0.5rem;">
+                    <strong>Réseau:</strong> <span id="networkName">-</span>
+                </div>
+                <div>
+                    <strong>Balance:</strong> <span id="balance">0</span> BNB
+                </div>
             </div>
-            <div style="overflow-x: auto;">
-                <table class="trades-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Paire</th>
-                            <th>Mode</th>
-                            <th>Type</th>
-                            <th>Entrée</th>
-                            <th>Sortie</th>
-                            <th>Montant</th>
-                            <th>P&L</th>
-                            <th>%</th>
-                            <th>Statut</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tradesTableBody">
-                        <tr>
-                            <td colspan="10" style="text-align: center; color: var(--text-muted);">
-                                Aucun trade pour le moment
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        </div>
+
+        <!-- Trading Controls -->
+        <div class="card">
+            <h2 style="margin-bottom: 1rem;">⚙️ Configuration Trading</h2>
+            
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">
+                Paire de Trading
+            </label>
+            <select class="form-select" id="tradingPair">
+                <option value="BNBUSDT">BNB/USDT</option>
+                <option value="BTCUSDT">BTC/USDT</option>
+                <option value="ETHUSDT">ETH/USDT</option>
+            </select>
+
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-secondary);">
+                Montant ($)
+            </label>
+            <input type="number" class="form-input" id="amount" value="100" min="10">
+
+            <div class="grid-2">
+                <button class="btn btn-success" id="buyBtn">📈 Acheter</button>
+                <button class="btn btn-danger" id="sellBtn">📉 Vendre</button>
             </div>
+        </div>
+
+        <!-- Activity Log -->
+        <div class="card">
+            <h2 style="margin-bottom: 1rem;">📝 Journal d'Activité</h2>
+            <div class="log-container" id="logContainer"></div>
         </div>
     </div>
 
     <script>
-        // ===== CONFIGURATION =====
-        const CONFIG = {
-            BINANCE_API: 'https://api.binance.com/api/v3',
-            COMMISSION_RATE: 0.001,
-            DEVELOPER_WALLET: '0xb44dd82c004a767d23b890f788fd6f9b13fcf6a4',
-            TRADE_FEE_BNB: '0.0001',
-            
-            TRADING_MODES: {
-                SCALPING: {
-                    name: 'Scalping',
-                    minProfit: 0.2,
-                    maxProfit: 1.0,
-                    stopLoss: 0.5,
-                    interval: 30000,
-                    trailingStop: true,
-                    trailingDistance: 0.3
-                },
-                DAY: {
-                    name: 'Day Trading',
-                    minProfit: 2.0,
-                    maxProfit: 5.0,
-                    stopLoss: 1.5,
-                    interval: 300000,
-                    trailingStop: true,
-                    trailingDistance: 0.5
-                },
-                SWING: {
-                    name: 'Swing Trading',
-                    minProfit: 5.0,
-                    maxProfit: 15.0,
-                    stopLoss: 3.0,
-                    interval: 900000,
-                    trailingStop: true,
-                    trailingDistance: 1.0
-                }
-            }
-        };
+        console.log('Script starting...');
 
-        // ===== STATE =====
+        // Global state
         const state = {
             web3: null,
             account: null,
             balance: 0,
-            isConnected: false,
-            isTradingActive: false,
-            isDCAActive: false,
-            currentPrice: 0,
-            openPosition: null,
-            trades: [],
-            dcaTrades: [],
-            chart: null,
-            priceHistory: [],
-            updateInterval: null,
-            dcaInterval: null,
-            tradingMode: 'DAY',
-            signalStrength: 0,
-            indicators: {},
-            highestProfit: 0,
-            totalCommissionPaid: 0
+            isConnected: false
         };
 
-        // ===== WALLET CONNECTION =====
+        const CONFIG = {
+            DEVELOPER_WALLET: '0xb44dd82c004a767d23b890f788fd6f9b13fcf6a4',
+            TRADE_FEE: '0.0001',
+            BINANCE_API: 'https://api.binance.com/api/v3'
+        };
+
+        // Add log entry
+        function addLog(type, message) {
+            const container = document.getElementById('logContainer');
+            const time = new Date().toLocaleTimeString('fr-FR');
+            
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.innerHTML = `<span style="color: var(--text-muted);">[${time}]</span> ${message}`;
+            
+            container.insertBefore(entry, container.firstChild);
+            
+            // Keep only last 50 logs
+            while (container.children.length > 50) {
+                container.removeChild(container.lastChild);
+            }
+        }
+
+        // Get network name
+        function getNetworkName(chainId) {
+            const networks = {
+                '0x1': 'Ethereum Mainnet',
+                '0x38': 'BSC Mainnet',
+                '0x61': 'BSC Testnet',
+                '0x89': 'Polygon',
+                '0xa86a': 'Avalanche'
+            };
+            return networks[chainId] || `Chain ${chainId}`;
+        }
+
+        // Connect wallet
         async function connectWallet() {
+            console.log('connectWallet called');
+            
             if (typeof window.ethereum === 'undefined') {
-                alert('MetaMask non détecté! Veuillez installer MetaMask pour continuer.');
+                alert('MetaMask non détecté! Veuillez installer MetaMask.');
                 window.open('https://metamask.io/download/', '_blank');
                 return;
             }
 
             try {
-                const accounts = await window.ethereum.request({ 
-                    method: 'eth_requestAccounts' 
+                addLog('info', '🔄 Connexion à MetaMask...');
+
+                // Request account access
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
                 });
-                
+
+                console.log('Accounts:', accounts);
+
+                if (accounts.length === 0) {
+                    addLog('error', '❌ Aucun compte trouvé');
+                    return;
+                }
+
                 state.account = accounts[0];
                 state.web3 = new Web3(window.ethereum);
 
-                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-                const networkName = getNetworkName(chainId);
+                // Get chain ID
+                const chainId = await window.ethereum.request({ 
+                    method: 'eth_chainId' 
+                });
 
+                // Get balance
                 const balanceWei = await state.web3.eth.getBalance(state.account);
                 state.balance = parseFloat(state.web3.utils.fromWei(balanceWei, 'ether'));
 
                 state.isConnected = true;
 
-                document.getElementById('connectWalletBtn').style.display = 'none';
-                document.getElementById('disconnectWalletBtn').style.display = 'block';
+                // Update UI
+                document.getElementById('connectBtn').style.display = 'none';
+                document.getElementById('disconnectBtn').style.display = 'block';
                 document.getElementById('walletInfo').style.display = 'block';
                 document.getElementById('walletAddress').textContent = state.account;
-                document.getElementById('networkName').textContent = networkName;
-                document.getElementById('walletBalance').textContent = state.balance.toFixed(4);
-                document.getElementById('statusIndicator').className = 'status-indicator online';
+                document.getElementById('networkName').textContent = getNetworkName(chainId);
+                document.getElementById('balance').textContent = state.balance.toFixed(4);
+                document.getElementById('statusDot').className = 'status-dot online';
 
-                addLog('success', `✅ Wallet connecté: ${state.account.substring(0, 6)}...${state.account.substring(38)}`);
-                addLog('info', `🌐 Réseau: ${networkName}`);
+                addLog('success', `✅ Connecté: ${state.account.substring(0, 6)}...${state.account.substring(38)}`);
+                addLog('info', `🌐 Réseau: ${getNetworkName(chainId)}`);
                 addLog('info', `💰 Balance: ${state.balance.toFixed(4)} BNB`);
 
                 if (chainId !== '0x38' && chainId !== '0x61') {
-                    addLog('warning', '⚠️ Attention: Vous n\'êtes pas sur Binance Smart Chain. Recommandé pour des frais réduits.');
+                    addLog('warning', '⚠️ Vous n\'êtes pas sur BSC. Recommandé pour frais réduits.');
                 }
 
-                // Listen for account changes
-                window.ethereum.on('accountsChanged', function (accounts) {
+                // Listen for changes
+                window.ethereum.on('accountsChanged', (accounts) => {
                     if (accounts.length === 0) {
                         disconnectWallet();
                     } else {
@@ -831,1793 +348,196 @@
                     }
                 });
 
-                // Listen for chain changes
-                window.ethereum.on('chainChanged', function (chainId) {
+                window.ethereum.on('chainChanged', () => {
                     location.reload();
                 });
 
             } catch (error) {
-                console.error('Error connecting wallet:', error);
-                addLog('error', 'Erreur de connexion: ' + error.message);
+                console.error('Connect error:', error);
+                addLog('error', `❌ Erreur: ${error.message}`);
             }
         }
 
-        function getNetworkName(chainId) {
-            const networks = {
-                '0x1': 'Ethereum Mainnet',
-                '0x38': 'BSC Mainnet',
-                '0x61': 'BSC Testnet',
-                '0x89': 'Polygon Mainnet',
-                '0xa86a': 'Avalanche C-Chain'
-            };
-            return networks[chainId] || `Chain ID: ${chainId}`;
-        }
-
+        // Disconnect wallet
         function disconnectWallet() {
             state.isConnected = false;
             state.account = null;
             state.balance = 0;
 
-            if (state.isTradingActive) {
-                stopTrading();
-            }
-            if (state.isDCAActive) {
-                stopDCA();
-            }
-
-            document.getElementById('connectWalletBtn').style.display = 'block';
-            document.getElementById('disconnectWalletBtn').style.display = 'none';
+            document.getElementById('connectBtn').style.display = 'block';
+            document.getElementById('disconnectBtn').style.display = 'none';
             document.getElementById('walletInfo').style.display = 'none';
-            document.getElementById('statusIndicator').className = 'status-indicator offline';
+            document.getElementById('statusDot').className = 'status-dot offline';
 
-            addLog('warning', '🔌 Wallet déconnecté');
+            addLog('warning', '🔌 Déconnecté');
         }
 
-        // ===== COMMISSION SYSTEM =====
-        async function sendCommissionToDeveloper(profitAmount, currentPrice) {
-            if (!state.isConnected || !state.web3) {
-                addLog('error', 'Wallet non connecté pour envoyer la commission');
-                return false;
-            }
-
+        // Get current price
+        async function getCurrentPrice(symbol) {
             try {
-                const commissionUSD = profitAmount * CONFIG.COMMISSION_RATE;
-                const commissionBNB = commissionUSD / currentPrice;
-                
-                if (commissionBNB <= 0) {
-                    addLog('warning', 'Commission trop faible pour être envoyée');
-                    return false;
-                }
-                
-                const commissionWei = state.web3.utils.toWei(commissionBNB.toFixed(18), 'ether');
-
-                addLog('info', `💎 Calcul commission: ${commissionUSD.toFixed(4)} = ${commissionBNB.toFixed(8)} BNB`);
-                addLog('info', `📤 Envoi de ${commissionBNB.toFixed(8)} BNB au développeur...`);
-
-                const txParams = {
-                    from: state.account,
-                    to: CONFIG.DEVELOPER_WALLET,
-                    value: '0x' + BigInt(commissionWei).toString(16),
-                    gas: '0x5208',
-                    data: '0x'
-                };
-
-                addLog('warning', '⚠️ Confirmation requise dans MetaMask pour la commission...');
-                console.log('Sending commission tx:', txParams);
-
-                const txHash = await window.ethereum.request({
-                    method: 'eth_sendTransaction',
-                    params: [txParams]
-                });
-
-                addLog('success', `✅ Commission envoyée! TX: ${txHash.substring(0, 10)}...`);
-                addLog('info', `📝 Voir sur BSCScan: https://bscscan.com/tx/${txHash}`);
-                
-                state.totalCommissionPaid += commissionUSD;
-                document.getElementById('totalCommission').textContent = ' + state.totalCommissionPaid.toFixed(4);
-
-                return true;
+                const response = await fetch(`${CONFIG.BINANCE_API}/ticker/price?symbol=${symbol}`);
+                const data = await response.json();
+                return parseFloat(data.price);
             } catch (error) {
-                console.error('Erreur envoi commission:', error);
-                if (error.code === 4001) {
-                    addLog('warning', '❌ Commission annulée par l\'utilisateur');
-                } else if (error.code === -32603) {
-                    addLog('error', '❌ Erreur interne MetaMask - Vérifiez votre balance');
-                } else {
-                    addLog('error', `Erreur envoi commission: ${error.message}`);
-                }
-                return false;
-            }
-        }
-
-        // ===== MARKET DATA =====
-        async function fetchMarketData(symbol) {
-            try {
-                const pair = symbol.replace('/', '');
-                
-                const tickerResponse = await fetch(`${CONFIG.BINANCE_API}/ticker/price?symbol=${pair}`);
-                const tickerData = await tickerResponse.json();
-                const currentPrice = parseFloat(tickerData.price);
-
-                const statsResponse = await fetch(`${CONFIG.BINANCE_API}/ticker/24hr?symbol=${pair}`);
-                const statsData = await statsResponse.json();
-
-                const klinesResponse = await fetch(
-                    `${CONFIG.BINANCE_API}/klines?symbol=${pair}&interval=15m&limit=100`
-                );
-                const klinesData = await klinesResponse.json();
-
-                const closes = klinesData.map(k => parseFloat(k[4]));
-
-                state.currentPrice = currentPrice;
-
-                state.priceHistory.push({
-                    time: Date.now(),
-                    price: currentPrice
-                });
-
-                if (state.priceHistory.length > 50) {
-                    state.priceHistory.shift();
-                }
-
-                updateChart();
-
-                const indicators = {
-                    rsi: calculateRSI(closes),
-                    ema20: calculateEMA(closes, 20),
-                    ema50: calculateEMA(closes, 50),
-                    volume: parseFloat(statsData.volume),
-                    priceChange24h: parseFloat(statsData.priceChangePercent),
-                    high24h: parseFloat(statsData.highPrice),
-                    low24h: parseFloat(statsData.lowPrice),
-                    volatility: calculateVolatility(closes),
-                    momentum: calculateMomentum(closes)
-                };
-
-                state.indicators = indicators;
-
-                document.getElementById('currentPrice').textContent = ' + currentPrice.toFixed(2);
-                document.getElementById('currentPriceDisplay').textContent = ' + currentPrice.toFixed(2);
-                document.getElementById('priceChange24h').textContent = indicators.priceChange24h.toFixed(2) + '%';
-                document.getElementById('priceChange24h').className = `stat-value ${indicators.priceChange24h >= 0 ? 'green' : 'red'}`;
-                document.getElementById('volume24h').textContent = formatNumber(indicators.volume);
-                document.getElementById('rsiValue').textContent = indicators.rsi.toFixed(0);
-                document.getElementById('rsiValue').className = `stat-value ${indicators.rsi < 30 ? 'green' : indicators.rsi > 70 ? 'red' : 'blue'}`;
-
-                return {
-                    price: currentPrice,
-                    indicators
-                };
-
-            } catch (error) {
-                console.error('Error fetching market data:', error);
-                addLog('error', 'Erreur lors de la récupération des données marché');
+                console.error('Price fetch error:', error);
                 return null;
             }
         }
 
-        // ===== TECHNICAL INDICATORS =====
-        function calculateRSI(prices, period = 14) {
-            if (prices.length < period + 1) return 50;
-
-            let gains = 0;
-            let losses = 0;
-
-            for (let i = prices.length - period; i < prices.length; i++) {
-                const change = prices[i] - prices[i - 1];
-                if (change > 0) gains += change;
-                else losses -= change;
-            }
-
-            const avgGain = gains / period;
-            const avgLoss = losses / period;
-
-            if (avgLoss === 0) return 100;
-
-            const rs = avgGain / avgLoss;
-            const rsi = 100 - (100 / (1 + rs));
-
-            return rsi;
-        }
-
-        function calculateEMA(prices, period) {
-            if (prices.length === 0) return 0;
-            
-            const multiplier = 2 / (period + 1);
-            let ema = prices[0];
-
-            for (let i = 1; i < prices.length; i++) {
-                ema = (prices[i] - ema) * multiplier + ema;
-            }
-
-            return ema;
-        }
-
-        function calculateVolatility(prices) {
-            if (prices.length < 2) return 0;
-
-            const returns = [];
-            for (let i = 1; i < prices.length; i++) {
-                returns.push((prices[i] - prices[i-1]) / prices[i-1]);
-            }
-
-            const mean = returns.reduce((a, b) => a + b) / returns.length;
-            const variance = returns.reduce((sum, r) => sum + Math.pow(r - mean, 2), 0) / returns.length;
-            
-            return Math.sqrt(variance) * 100;
-        }
-
-        function calculateMomentum(prices, period = 10) {
-            if (prices.length < period) return 0;
-            
-            const current = prices[prices.length - 1];
-            const past = prices[prices.length - period];
-            
-            return ((current - past) / past) * 100;
-        }
-
-        // ===== SIGNAL ANALYSIS =====
-        function analyzeSignals(marketData) {
-            const indicators = marketData.indicators;
-            const signals = {
-                rsi: false,
-                trend: false,
-                volume: false,
-                momentum: false,
-                ema: false,
-                volatility: false,
-                support: false
-            };
-
-            signals.rsi = indicators.rsi < 35;
-            signals.trend = indicators.priceChange24h > 0;
-            signals.volume = indicators.volume > 1000000;
-            signals.momentum = indicators.momentum > 0.5;
-            signals.ema = state.currentPrice > indicators.ema20;
-            signals.volatility = indicators.volatility < 3 && indicators.volatility > 0.5;
-
-            const range = indicators.high24h - indicators.low24h;
-            const position = (state.currentPrice - indicators.low24h) / range;
-            signals.support = position < 0.3;
-
-            Object.keys(signals).forEach(key => {
-                const element = document.getElementById(`signal-${key}`);
-                if (element) {
-                    if (signals[key]) {
-                        element.classList.add('active');
-                        element.classList.remove('inactive');
-                    } else {
-                        element.classList.remove('active');
-                        element.classList.add('inactive');
-                    }
-                }
-            });
-
-            const strength = Object.values(signals).filter(s => s).length;
-            state.signalStrength = strength;
-
-            document.getElementById('signalStrength').textContent = `${strength}/7`;
-            document.getElementById('signalProgress').style.width = `${(strength / 7) * 100}%`;
-
-            return { signals, strength };
-        }
-
-        // ===== TRADING LOGIC =====
-        async function startTrading() {
+        // Buy action
+        async function executeBuy() {
             if (!state.isConnected) {
-                alert('Veuillez connecter votre wallet avant de démarrer le trading.');
+                alert('Veuillez connecter votre wallet d\'abord!');
                 return;
             }
 
-            state.isTradingActive = true;
-            state.tradingMode = document.getElementById('tradingMode').value;
+            try {
+                const pair = document.getElementById('tradingPair').value;
+                const amount = parseFloat(document.getElementById('amount').value);
 
-            document.getElementById('startTradingBtn').style.display = 'none';
-            document.getElementById('stopTradingBtn').style.display = 'block';
+                addLog('info', `📊 Préparation achat ${pair}...`);
 
-            const mode = CONFIG.TRADING_MODES[state.tradingMode];
-            addLog('success', `🚀 Trading Bot démarré en mode ${mode.name}`);
-            addLog('info', `🎯 Objectifs: ${mode.minProfit}-${mode.maxProfit}%, Stop Loss: -${mode.stopLoss}%`);
-
-            updateMarket();
-            state.updateInterval = setInterval(updateMarket, mode.interval);
-        }
-
-        function stopTrading() {
-            state.isTradingActive = false;
-            document.getElementById('startTradingBtn').style.display = 'block';
-            document.getElementById('stopTradingBtn').style.display = 'none';
-
-            if (state.updateInterval) {
-                clearInterval(state.updateInterval);
-                state.updateInterval = null;
-            }
-
-            const mode = CONFIG.TRADING_MODES[state.tradingMode];
-            addLog('warning', `⏸️ Trading Bot arrêté (mode ${mode.name})`);
-        }
-
-        async function updateMarket() {
-            const pair = document.getElementById('tradingPair').value;
-            const marketData = await fetchMarketData(pair);
-
-            if (!marketData) return;
-
-            const { signals, strength } = analyzeSignals(marketData);
-
-            if (state.openPosition) {
-                await checkExitConditions();
-            } else if (state.isTradingActive) {
-                const shouldTrade = strength >= 5;
-                const amount = parseFloat(document.getElementById('investmentAmount').value);
-
-                if (shouldTrade && amount > 0) {
-                    addLog('info', `🎯 Signal fort détecté (${strength}/7) - Préparation d'une position...`);
-                }
-
-                if (shouldTrade) {
-                    await openPosition(pair, amount, marketData.price);
-                }
-            }
-        }
-
-        async function checkExitConditions() {
-            const currentPrice = state.currentPrice;
-            const position = state.openPosition;
-            const entryPrice = position.entryPrice;
-            const mode = CONFIG.TRADING_MODES[state.tradingMode];
-
-            const priceChange = ((currentPrice - entryPrice) / entryPrice) * 100;
-            const profitAmount = (position.amount * priceChange) / 100;
-
-            if (priceChange > state.highestProfit) {
-                state.highestProfit = priceChange;
-                addLog('info', `💎 Nouveau profit max: ${priceChange.toFixed(2)}% (${profitAmount >= 0 ? '+' : ''}${profitAmount.toFixed(2)})`);
-            }
-
-            if (mode.trailingStop && state.highestProfit > 0) {
-                const trailingThreshold = state.highestProfit - mode.trailingDistance;
-                
-                if (priceChange <= trailingThreshold) {
-                    addLog('success', `🎯 Trailing Stop déclenché! Prix descendu de ${mode.trailingDistance}% depuis le pic`);
-                    await closePosition(currentPrice, 'Trailing Stop');
+                const price = await getCurrentPrice(pair);
+                if (!price) {
+                    addLog('error', '❌ Impossible de récupérer le prix');
                     return;
                 }
-            }
 
-            if (priceChange <= -mode.stopLoss) {
-                addLog('warning', `🛑 Stop Loss atteint à -${mode.stopLoss}%`);
-                await closePosition(currentPrice, 'Stop Loss');
-                return;
-            }
+                addLog('info', `💰 Prix actuel: $${price.toFixed(2)}`);
 
-            if (priceChange >= mode.maxProfit) {
-                addLog('success', `🎉 Take Profit maximum atteint à +${mode.maxProfit}%`);
-                await closePosition(currentPrice, 'Take Profit Max');
-                return;
-            }
-
-            if (state.tradingMode === 'SCALPING' && priceChange >= mode.minProfit) {
-                addLog('success', `⚡ Take Profit rapide en scalping: +${priceChange.toFixed(2)}%`);
-                await closePosition(currentPrice, 'Take Profit Scalping');
-                return;
-            }
-        }
-
-        async function openPosition(pair, amount, entryPrice) {
-            const mode = CONFIG.TRADING_MODES[state.tradingMode];
-            
-            addLog('info', `🚀 [${mode.name}] Préparation ouverture position ${pair}...`);
-
-            try {
-                const cryptoAmount = amount / entryPrice;
+                // Create transaction
+                const feeWei = state.web3.utils.toWei(CONFIG.TRADE_FEE, 'ether');
                 
-                addLog('info', `📊 Achat de ${cryptoAmount.toFixed(6)} ${pair.split('/')[0]} pour ${amount}`);
-
-                const registrationFeeWei = state.web3.utils.toWei(CONFIG.TRADE_FEE_BNB, 'ether');
-                
-                const tradeData = JSON.stringify({
-                    action: 'OPEN_POSITION',
+                const txData = JSON.stringify({
+                    action: 'BUY',
                     pair: pair,
                     amount: amount,
-                    mode: state.tradingMode,
+                    price: price,
                     timestamp: Date.now()
                 });
 
                 const txParams = {
                     from: state.account,
                     to: CONFIG.DEVELOPER_WALLET,
-                    value: '0x' + BigInt(registrationFeeWei).toString(16),
+                    value: '0x' + BigInt(feeWei).toString(16),
                     gas: '0x7530',
-                    data: state.web3.utils.utf8ToHex(tradeData)
+                    data: state.web3.utils.utf8ToHex(txData)
                 };
 
-                addLog('warning', `⚠️ Confirmation requise dans MetaMask (${CONFIG.TRADE_FEE_BNB} BNB de frais)...`);
-                console.log('Opening position tx:', txParams);
+                addLog('warning', '⚠️ Confirmez la transaction dans MetaMask...');
+                console.log('Transaction params:', txParams);
 
                 const txHash = await window.ethereum.request({
                     method: 'eth_sendTransaction',
                     params: [txParams]
                 });
 
-                addLog('success', `✅ Position ouverte! TX: ${txHash.substring(0, 10)}...`);
-                addLog('info', `📝 Voir sur BSCScan: https://bscscan.com/tx/${txHash}`);
-                addLog('info', `📊 Config: TP ${mode.minProfit}-${mode.maxProfit}%, SL -${mode.stopLoss}%, Trailing ${mode.trailingDistance}%`);
-
-                state.openPosition = {
-                    pair,
-                    amount,
-                    cryptoAmount,
-                    entryPrice,
-                    openTime: new Date(),
-                    type: 'LONG',
-                    mode: state.tradingMode,
-                    txHash: txHash
-                };
-
-                state.highestProfit = 0;
-                updateTradesDisplay();
+                addLog('success', `✅ Achat enregistré! TX: ${txHash.substring(0, 10)}...`);
+                addLog('info', `🔗 BSCScan: https://bscscan.com/tx/${txHash}`);
 
             } catch (error) {
-                console.error('Erreur ouverture position:', error);
+                console.error('Buy error:', error);
                 if (error.code === 4001) {
-                    addLog('warning', '❌ Ouverture position annulée par l\'utilisateur');
-                } else if (error.code === -32603) {
-                    addLog('error', `❌ Balance insuffisante (besoin de ${CONFIG.TRADE_FEE_BNB} BNB minimum)`);
-                } else if (error.code === -32000) {
-                    addLog('error', '❌ Transaction rejetée - Vérifiez votre balance');
+                    addLog('warning', '❌ Transaction annulée');
                 } else {
-                    addLog('error', `Erreur ouverture: ${error.message}`);
+                    addLog('error', `❌ Erreur: ${error.message}`);
                 }
             }
         }
 
-        async function closePosition(exitPrice, reason) {
-            if (!state.openPosition) return;
-
-            const position = state.openPosition;
-            const priceChange = ((exitPrice - position.entryPrice) / position.entryPrice) * 100;
-            const profitLoss = (position.amount * priceChange) / 100;
-            const mode = CONFIG.TRADING_MODES[position.mode];
-
-            addLog('info', `📉 Fermeture position ${position.pair}...`);
-
-            try {
-                const closeFeeWei = state.web3.utils.toWei(CONFIG.TRADE_FEE_BNB, 'ether');
-                
-                const closeData = JSON.stringify({
-                    action: 'CLOSE_POSITION',
-                    pair: position.pair,
-                    profitLoss: profitLoss.toFixed(2),
-                    reason: reason,
-                    timestamp: Date.now()
-                });
-
-                const txParams = {
-                    from: state.account,
-                    to: CONFIG.DEVELOPER_WALLET,
-                    value: '0x' + BigInt(closeFeeWei).toString(16),
-                    gas: '0x7530',
-                    data: state.web3.utils.utf8ToHex(closeData)
-                };
-
-                addLog('warning', `⚠️ Confirmation requise dans MetaMask (${CONFIG.TRADE_FEE_BNB} BNB de frais)...`);
-                console.log('Closing position tx:', txParams);
-
-                const closeTxHash = await window.ethereum.request({
-                    method: 'eth_sendTransaction',
-                    params: [txParams]
-                });
-
-                addLog('success', `✅ Position fermée! TX: ${closeTxHash.substring(0, 10)}...`);
-
-                const trade = {
-                    ...position,
-                    exitPrice,
-                    closeTime: new Date(),
-                    profitLoss,
-                    priceChange: priceChange.toFixed(2),
-                    reason,
-                    commission: 0,
-                    highestProfit: state.highestProfit.toFixed(2),
-                    closeTxHash: closeTxHash
-                };
-
-                if (profitLoss > 0) {
-                    addLog('info', '💎 Trade profitable - Calcul de la commission...');
-                    const commissionSent = await sendCommissionToDeveloper(profitLoss, exitPrice);
-                    if (commissionSent) {
-                        trade.commission = profitLoss * CONFIG.COMMISSION_RATE;
-                        addLog('success', `💎 Commission de ${trade.commission.toFixed(4)} envoyée au développeur`);
-                    }
-                }
-
-                state.trades.unshift(trade);
-                state.openPosition = null;
-                state.highestProfit = 0;
-
-                const profitLossFormatted = profitLoss >= 0 ? 
-                    `+${profitLoss.toFixed(2)}` : 
-                    `-${Math.abs(profitLoss).toFixed(2)}`;
-
-                const emoji = profitLoss >= 0 ? '🎉' : '😢';
-                addLog(
-                    profitLoss >= 0 ? 'success' : 'error',
-                    `${emoji} [${mode.name}] ${reason}: ${position.pair} à ${exitPrice.toFixed(2)} - P&L: ${profitLossFormatted} (${priceChange.toFixed(2)}%)`
-                );
-
-                if (profitLoss >= 0) {
-                    addLog('info', `📈 Profit max atteint pendant le trade: ${trade.highestProfit}%`);
-                }
-
-                updateTradesDisplay();
-                updateStats();
-
-            } catch (error) {
-                console.error('Erreur fermeture position:', error);
-                if (error.code === 4001) {
-                    addLog('warning', '❌ Fermeture position annulée par l\'utilisateur');
-                } else if (error.code === -32603) {
-                    addLog('error', '❌ Balance insuffisante pour fermer la position');
-                } else {
-                    addLog('error', `Erreur fermeture: ${error.message}`);
-                    const trade = {
-                        ...position,
-                        exitPrice,
-                        closeTime: new Date(),
-                        profitLoss,
-                        priceChange: priceChange.toFixed(2),
-                        reason: reason + ' (Erreur TX)',
-                        commission: 0,
-                        highestProfit: state.highestProfit.toFixed(2)
-                    };
-                    state.trades.unshift(trade);
-                    state.openPosition = null;
-                    state.highestProfit = 0;
-                    updateTradesDisplay();
-                    updateStats();
-                }
-            }
-        }
-
-        // ===== DCA MODE =====
-        function startDCA() {
+        // Sell action
+        async function executeSell() {
             if (!state.isConnected) {
-                alert('Veuillez connecter votre wallet avant de démarrer le DCA.');
-                return;
-            }
-
-            state.isDCAActive = true;
-            document.getElementById('startDcaBtn').style.display = 'none';
-            document.getElementById('stopDcaBtn').style.display = 'block';
-
-            const interval = parseInt(document.getElementById('dcaInterval').value) * 1000;
-
-            addLog('success', '✅ Mode DCA activé');
-
-            executeDCA();
-
-            state.dcaInterval = setInterval(() => {
-                if (state.isDCAActive) {
-                    executeDCA();
-                }
-            }, interval);
-        }
-
-        function stopDCA() {
-            state.isDCAActive = false;
-            document.getElementById('startDcaBtn').style.display = 'block';
-            document.getElementById('stopDcaBtn').style.display = 'none';
-
-            if (state.dcaInterval) {
-                clearInterval(state.dcaInterval);
-                state.dcaInterval = null;
-            }
-
-            addLog('warning', '⏸️ Mode DCA arrêté');
-        }
-
-        async function executeDCA() {
-            if (!state.isConnected) {
-                addLog('error', 'Wallet non connecté pour DCA !');
-                return;
-            }
-
-            const pair = document.getElementById('tradingPair').value;
-            const amountUSD = parseFloat(document.getElementById('dcaAmount').value);
-
-            addLog('info', `💰 Préparation achat DCA de ${amountUSD}$ de ${pair}...`);
-
-            const marketData = await fetchMarketData(pair);
-            if (!marketData) {
-                addLog('error', 'Impossible de récupérer le prix pour DCA');
+                alert('Veuillez connecter votre wallet d\'abord!');
                 return;
             }
 
             try {
-                const cryptoAmount = amountUSD / marketData.price;
-
-                addLog('info', `📊 Achat DCA: ${cryptoAmount.toFixed(6)} ${pair.split('/')[0]} pour ${amountUSD}<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JERCAT Pro Trading Bot - Professional Edition (FIXED v2)</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐱%3C/text%3E%3C/svg%3E">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <style>
-        :root {
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #111827;
-            --bg-tertiary: #1f2937;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --accent-green: #10b981;
-            --accent-yellow: #f59e0b;
-            --accent-red: #ef4444;
-            --text-primary: #f9fafb;
-            --text-secondary: #d1d5db;
-            --text-muted: #9ca3af;
-            --border: #374151;
-            --glass-bg: rgba(17, 24, 39, 0.6);
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
-            z-index: 0;
-            animation: bgFloat 20s ease infinite;
-        }
-
-        @keyframes bgFloat {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.7; }
-        }
-
-        .container {
-            max-width: 1920px;
-            margin: 0 auto;
-            padding: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .header-subtitle {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        .fix-badge {
-            display: inline-block;
-            background: var(--accent-green);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
-
-        .top-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: transform 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .card-header h2 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        @media (max-width: 1200px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
-            font-weight: 600;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -10px var(--accent-blue);
-        }
-
-        .btn-success {
-            background: var(--accent-green);
-            color: white;
-        }
-
-        .btn-danger {
-            background: var(--accent-red);
-            color: white;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-input, .form-select {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            border-radius: 0.5rem;
-            color: var(--text-primary);
-            font-size: 0.875rem;
-        }
-
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-        }
-
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-        }
-
-        .stat-item {
-            background: var(--bg-tertiary);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border);
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 0.25rem;
-        }
-
-        .stat-value.green {
-            color: var(--accent-green);
-        }
-
-        .stat-value.red {
-            color: var(--accent-red);
-        }
-
-        .stat-value.blue {
-            color: var(--accent-blue);
-        }
-
-        .trades-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.875rem;
-        }
-
-        .trades-table th {
-            background: var(--bg-tertiary);
-            padding: 0.75rem;
-            text-align: left;
-            font-weight: 600;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .trades-table td {
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .trades-table tr:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .badge.success {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--accent-green);
-        }
-
-        .badge.danger {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--accent-red);
-        }
-
-        .badge.warning {
-            background: rgba(245, 158, 11, 0.2);
-            color: var(--accent-yellow);
-        }
-
-        .badge.info {
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--accent-blue);
-        }
-
-        .log-container {
-            max-height: 300px;
-            overflow-y: auto;
-            background: var(--bg-tertiary);
-            border-radius: 0.5rem;
-            padding: 1rem;
-        }
-
-        .log-entry {
-            padding: 0.5rem;
-            margin-bottom: 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .log-entry.info {
-            background: rgba(59, 130, 246, 0.1);
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        .log-entry.success {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 3px solid var(--accent-green);
-        }
-
-        .log-entry.warning {
-            background: rgba(245, 158, 11, 0.1);
-            border-left: 3px solid var(--accent-yellow);
-        }
-
-        .log-entry.error {
-            background: rgba(239, 68, 68, 0.1);
-            border-left: 3px solid var(--accent-red);
-        }
-
-        .log-time {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--bg-tertiary);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 0.5rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-            transition: width 0.3s;
-        }
-
-        .signal-indicators {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .signal-indicator {
-            background: var(--bg-tertiary);
-            padding: 0.5rem;
-            border-radius: 0.375rem;
-            text-align: center;
-            font-size: 0.75rem;
-        }
-
-        .signal-indicator.active {
-            background: rgba(16, 185, 129, 0.2);
-            border: 1px solid var(--accent-green);
-        }
-
-        .signal-indicator.inactive {
-            opacity: 0.5;
-        }
-
-        .mode-description {
-            background: var(--bg-tertiary);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            margin-top: 1rem;
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        #priceChart {
-            max-height: 300px;
-        }
-
-        .wallet-info {
-            background: var(--bg-tertiary);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .wallet-address {
-            font-family: 'Courier New', monospace;
-            font-size: 0.75rem;
-            color: var(--accent-blue);
-            word-break: break-all;
-        }
-
-        .status-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-        }
-
-        .status-indicator.online {
-            background: var(--accent-green);
-            box-shadow: 0 0 8px var(--accent-green);
-        }
-
-        .status-indicator.offline {
-            background: var(--text-muted);
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>🐱 JERCAT Pro Trading Bot</h1>
-            <p class="header-subtitle">
-                Professional Automated Trading System with Real Blockchain Transactions
-                <span class="fix-badge">✅ FIXED v2 - MetaMask Ready</span>
-            </p>
-        </div>
-
-        <!-- Top Bar - Wallet & Stats -->
-        <div class="top-bar">
-            <!-- Wallet Connection -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>🔗 Wallet Connection</h2>
-                    <span class="status-indicator offline" id="statusIndicator"></span>
-                </div>
-                <button class="btn btn-primary" id="connectWalletBtn" style="width: 100%;">
-                    🔗 Connecter MetaMask
-                </button>
-                <button class="btn btn-danger" id="disconnectWalletBtn" style="width: 100%; display: none;">
-                    🔌 Déconnecter
-                </button>
-                <div class="wallet-info" id="walletInfo" style="display: none;">
-                    <div style="margin-bottom: 0.5rem;">
-                        <strong>Adresse:</strong>
-                        <div class="wallet-address" id="walletAddress"></div>
-                    </div>
-                    <div style="margin-bottom: 0.5rem;">
-                        <strong>Réseau:</strong>
-                        <span id="networkName">Non connecté</span>
-                    </div>
-                    <div>
-                        <strong>Balance:</strong>
-                        <span id="walletBalance">0</span> BNB
-                    </div>
-                </div>
-            </div>
-
-            <!-- Global Stats -->
-            <div class="card">
-                <div class="card-header">
-                    <h2>📊 Statistiques Globales</h2>
-                </div>
-                <div class="stat-grid">
-                    <div class="stat-item">
-                        <div class="stat-label">Total P&L</div>
-                        <div class="stat-value" id="totalProfitLoss">$0.00</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Win Rate</div>
-                        <div class="stat-value blue" id="winRate">0%</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Total Trades</div>
-                        <div class="stat-value blue" id="totalTrades">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Commission</div>
-                        <div class="stat-value" id="totalCommission">$0.0000</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Dashboard -->
-        <div class="dashboard">
-            <!-- Left Column - Charts & Controls -->
-            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                <!-- Trading Controls -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>⚙️ Configuration de Trading</h2>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Paire de Trading</label>
-                        <select class="form-select" id="tradingPair">
-                            <option value="BNB/USDT">BNB/USDT</option>
-                            <option value="BTC/USDT">BTC/USDT</option>
-                            <option value="ETH/USDT">ETH/USDT</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Mode de Trading</label>
-                        <select class="form-select" id="tradingMode">
-                            <option value="SCALPING">⚡ Scalping (0.2-1%)</option>
-                            <option value="DAY" selected>📊 Day Trading (2-5%)</option>
-                            <option value="SWING">📈 Swing Trading (5-15%)</option>
-                        </select>
-                        <div class="mode-description" id="modeDescription"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Montant d'Investissement ($)</label>
-                        <input type="number" class="form-input" id="investmentAmount" value="100" min="10" step="10">
-                    </div>
-
-                    <div class="grid-2">
-                        <button class="btn btn-success" id="startTradingBtn">
-                            ▶️ Démarrer Bot
-                        </button>
-                        <button class="btn btn-danger" id="stopTradingBtn" style="display: none;">
-                            ⏸️ Arrêter Bot
-                        </button>
-                    </div>
-
-                    <div class="grid-2" style="margin-top: 1rem;">
-                        <button class="btn btn-primary" id="manualBuyBtn">
-                            📈 Achat Manuel
-                        </button>
-                        <button class="btn btn-danger" id="manualSellBtn">
-                            📉 Vente Manuelle
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Price Chart -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>📈 Graphique de Prix</h2>
-                        <span id="currentPriceDisplay">$0.00</span>
-                    </div>
-                    <canvas id="priceChart"></canvas>
-                </div>
-
-                <!-- DCA Mode -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>💰 Mode DCA (Dollar Cost Averaging)</h2>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Montant par achat ($)</label>
-                        <input type="number" class="form-input" id="dcaAmount" value="5" min="1" step="1">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Intervalle (secondes)</label>
-                        <input type="number" class="form-input" id="dcaInterval" value="300" min="60" step="60">
-                    </div>
-
-                    <div class="stat-grid" style="margin-bottom: 1rem;">
-                        <div class="stat-item">
-                            <div class="stat-label">Achats</div>
-                            <div class="stat-value blue" id="dcaPurchases">0</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Prix Moy.</div>
-                            <div class="stat-value" id="dcaAvgPrice">$0.00</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Total Investi</div>
-                            <div class="stat-value" id="dcaTotalInvested">$0.00</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">ROI</div>
-                            <div class="stat-value" id="dcaROI">0%</div>
-                        </div>
-                    </div>
-
-                    <div class="grid-2">
-                        <button class="btn btn-success" id="startDcaBtn">
-                            ▶️ Démarrer DCA
-                        </button>
-                        <button class="btn btn-danger" id="stopDcaBtn" style="display: none;">
-                            ⏸️ Arrêter DCA
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column - Signals & Logs -->
-            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                <!-- Market Analysis -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>📊 Analyse du Marché</h2>
-                    </div>
-                    <div class="stat-grid">
-                        <div class="stat-item">
-                            <div class="stat-label">Prix</div>
-                            <div class="stat-value blue" id="currentPrice">$0.00</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">24h Change</div>
-                            <div class="stat-value" id="priceChange24h">0%</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Volume 24h</div>
-                            <div class="stat-value blue" id="volume24h">0</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">RSI (14)</div>
-                            <div class="stat-value" id="rsiValue">50</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Signal Strength -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>🎯 Force du Signal</h2>
-                    </div>
-                    <div style="text-align: center; margin-bottom: 1rem;">
-                        <div class="stat-value blue" id="signalStrength">0/7</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="signalProgress" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="signal-indicators">
-                        <div class="signal-indicator" id="signal-rsi">
-                            <div>📊 RSI</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-trend">
-                            <div>📈 Trend</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-volume">
-                            <div>📊 Volume</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-momentum">
-                            <div>⚡ Momentum</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-ema">
-                            <div>📉 EMA</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-volatility">
-                            <div>🌊 Volatility</div>
-                        </div>
-                        <div class="signal-indicator" id="signal-support">
-                            <div>🎯 S/R</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Activity Log -->
-                <div class="card" style="flex: 1;">
-                    <div class="card-header">
-                        <h2>📝 Journal d'Activité</h2>
-                        <button class="btn" onclick="clearLogs()" style="padding: 0.5rem 1rem; background: var(--bg-tertiary);">
-                            🗑️ Effacer
-                        </button>
-                    </div>
-                    <div class="log-container" id="logContainer"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Trades History -->
-        <div class="card">
-            <div class="card-header">
-                <h2>📊 Historique des Trades</h2>
-            </div>
-            <div style="overflow-x: auto;">
-                <table class="trades-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Paire</th>
-                            <th>Mode</th>
-                            <th>Type</th>
-                            <th>Entrée</th>
-                            <th>Sortie</th>
-                            <th>Montant</th>
-                            <th>P&L</th>
-                            <th>%</th>
-                            <th>Statut</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tradesTableBody">
-                        <tr>
-                            <td colspan="10" style="text-align: center; color: var(--text-muted);">
-                                Aucun trade pour le moment
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // ===== CONFIGURATION =====
-        const CONFIG = {
-            BINANCE_API: 'https://api.binance.com/api/v3',
-            COMMISSION_RATE: 0.001,
-            DEVELOPER_WALLET: '0xb44dd82c004a767d23b890f788fd6f9b13fcf6a4',
-            TRADE_FEE_BNB: '0.0001',
-            
-            TRADING_MODES: {
-                SCALPING: {
-                    name: 'Scalping',
-                    minProfit: 0.2,
-                    maxProfit: 1.0,
-                    stopLoss: 0.5,
-                    interval: 30000,
-                    trailingStop: true,
-                    trailingDistance: 0.3
-                },
-                DAY: {
-                    name: 'Day Trading',
-                    minProfit: 2.0,
-                    maxProfit: 5.0,
-                    stopLoss: 1.5,
-                    interval: 300000,
-                    trailingStop: true,
-                    trailingDistance: 0.5
-                },
-                SWING: {
-                    name: 'Swing Trading',
-                    minProfit: 5.0,
-                    maxProfit: 15.0,
-                    stopLoss: 3.0,
-                    interval: 900000,
-                    trailingStop: true,
-                    trailingDistance: 1.0
+                const pair = document.getElementById('tradingPair').value;
+                const amount = parseFloat(document.getElementById('amount').value);
+
+                addLog('info', `📊 Préparation vente ${pair}...`);
+
+                const price = await getCurrentPrice(pair);
+                if (!price) {
+                    addLog('error', '❌ Impossible de récupérer le prix');
+                    return;
                 }
-            }
-        };
 
-        // ===== STATE =====
-        const state = {
-            web3: null,
-            account: null,
-            balance: 0,
-            isConnected: false,
-            isTradingActive: false,
-            isDCAActive: false,
-            currentPrice: 0,
-            openPosition: null,
-            trades: [],
-            dcaTrades: [],
-            chart: null,
-            priceHistory: [],
-            updateInterval: null,
-            dcaInterval: null,
-            tradingMode: 'DAY',
-            signalStrength: 0,
-            indicators: {},
-            highestProfit: 0,
-            totalCommissionPaid: 0
-        };
+                addLog('info', `💰 Prix actuel: $${price.toFixed(2)}`);
 
-        // ===== WALLET CONNECTION =====
-        async function connectWallet() {
-            if (typeof window.ethereum === 'undefined') {
-                alert('MetaMask non détecté! Veuillez installer MetaMask pour continuer.');
-                window.open('https://metamask.io/download/', '_blank');
-                return;
-            }
-
-            try {
-                const accounts = await window.ethereum.request({ 
-                    method: 'eth_requestAccounts' 
-                });
+                const feeWei = state.web3.utils.toWei(CONFIG.TRADE_FEE, 'ether');
                 
-                state.account = accounts[0];
-                state.web3 = new Web3(window.ethereum);
-
-                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-                const networkName = getNetworkName(chainId);
-
-                const balanceWei = await state.web3.eth.getBalance(state.account);
-                state.balance = parseFloat(state.web3.utils.fromWei(balanceWei, 'ether'));
-
-                state.isConnected = true;
-
-                document.getElementById('connectWalletBtn').style.display = 'none';
-                document.getElementById('disconnectWalletBtn').style.display = 'block';
-                document.getElementById('walletInfo').style.display = 'block';
-                document.getElementById('walletAddress').textContent = state.account;
-                document.getElementById('networkName').textContent = networkName;
-                document.getElementById('walletBalance').textContent = state.balance.toFixed(4);
-                document.getElementById('statusIndicator').className = 'status-indicator online';
-
-                addLog('success', `✅ Wallet connecté: ${state.account.substring(0, 6)}...${state.account.substring(38)}`);
-                addLog('info', `🌐 Réseau: ${networkName}`);
-                addLog('info', `💰 Balance: ${state.balance.toFixed(4)} BNB`);
-
-);
-
-                const dcaFeeWei = state.web3.utils.toWei(CONFIG.TRADE_FEE_BNB, 'ether');
-                
-                const dcaData = JSON.stringify({
-                    action: 'DCA_BUY',
+                const txData = JSON.stringify({
+                    action: 'SELL',
                     pair: pair,
-                    amount: amountUSD,
-                    price: marketData.price,
+                    amount: amount,
+                    price: price,
                     timestamp: Date.now()
                 });
 
                 const txParams = {
                     from: state.account,
                     to: CONFIG.DEVELOPER_WALLET,
-                    value: '0x' + BigInt(dcaFeeWei).toString(16),
+                    value: '0x' + BigInt(feeWei).toString(16),
                     gas: '0x7530',
-                    data: state.web3.utils.utf8ToHex(dcaData)
+                    data: state.web3.utils.utf8ToHex(txData)
                 };
 
-                addLog('warning', `⚠️ Confirmation requise dans MetaMask (${CONFIG.TRADE_FEE_BNB} BNB)...`);
-                console.log('DCA tx:', txParams);
+                addLog('warning', '⚠️ Confirmez la transaction dans MetaMask...');
+                console.log('Transaction params:', txParams);
 
                 const txHash = await window.ethereum.request({
                     method: 'eth_sendTransaction',
                     params: [txParams]
                 });
 
-                addLog('success', `✅ Transaction DCA confirmée! TX: ${txHash.substring(0, 10)}...`);
-                addLog('info', `📝 Voir sur BSCScan: https://bscscan.com/tx/${txHash}`);
-
-                const dcaTrade = {
-                    pair,
-                    amount: amountUSD,
-                    cryptoAmount: cryptoAmount,
-                    price: marketData.price,
-                    time: new Date(),
-                    txHash: txHash
-                };
-
-                state.dcaTrades.push(dcaTrade);
-
-                addLog('success', `💰 DCA enregistré: ${cryptoAmount.toFixed(6)} ${pair.split('/')[0]} à ${marketData.price.toFixed(2)}`);
-
-                updateDCAStats();
+                addLog('success', `✅ Vente enregistrée! TX: ${txHash.substring(0, 10)}...`);
+                addLog('info', `🔗 BSCScan: https://bscscan.com/tx/${txHash}`);
 
             } catch (error) {
-                console.error('Erreur DCA:', error);
+                console.error('Sell error:', error);
                 if (error.code === 4001) {
-                    addLog('warning', '❌ Transaction DCA annulée par l\'utilisateur');
-                } else if (error.code === -32603) {
-                    addLog('error', `❌ Balance insuffisante pour DCA (besoin de ${CONFIG.TRADE_FEE_BNB} BNB)`);
-                } else if (error.code === -32000) {
-                    addLog('error', '❌ Transaction DCA rejetée - Vérifiez votre balance');
+                    addLog('warning', '❌ Transaction annulée');
                 } else {
-                    addLog('error', `Erreur DCA: ${error.message}`);
+                    addLog('error', `❌ Erreur: ${error.message}`);
                 }
             }
         }
 
-        function updateDCAStats() {
-            const purchases = state.dcaTrades.length;
-            const totalInvested = state.dcaTrades.reduce((sum, t) => sum + t.amount, 0);
-            
-            let avgPrice = 0;
-            if (purchases > 0) {
-                const totalCrypto = state.dcaTrades.reduce((sum, t) => sum + t.cryptoAmount, 0);
-                avgPrice = totalInvested / totalCrypto;
-            }
-
-            const currentValue = state.dcaTrades.reduce((sum, t) => {
-                return sum + (t.cryptoAmount * state.currentPrice);
-            }, 0);
-
-            const roi = totalInvested > 0 ? ((currentValue - totalInvested) / totalInvested) * 100 : 0;
-
-            document.getElementById('dcaPurchases').textContent = purchases;
-            document.getElementById('dcaAvgPrice').textContent = ' + avgPrice.toFixed(2);
-            document.getElementById('dcaTotalInvested').textContent = ' + totalInvested.toFixed(2);
-            document.getElementById('dcaROI').textContent = roi.toFixed(2) + '%';
-            document.getElementById('dcaROI').className = 
-                `stat-value ${roi >= 0 ? 'green' : 'red'}`;
-        }
-
-        // ===== UI UPDATES =====
-        function updateTradesDisplay() {
-            const tbody = document.getElementById('tradesTableBody');
-            
-            if (state.trades.length === 0 && !state.openPosition) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="10" style="text-align: center; color: var(--text-muted);">
-                            Aucun trade pour le moment
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-
-            let html = '';
-
-            if (state.openPosition) {
-                const pos = state.openPosition;
-                const currentPL = ((state.currentPrice - pos.entryPrice) / pos.entryPrice) * 100;
-                const currentPLAmount = (pos.amount * currentPL) / 100;
-                const mode = CONFIG.TRADING_MODES[pos.mode];
-
-                html += `
-                    <tr style="background: rgba(59, 130, 246, 0.1); border-left: 3px solid var(--accent-blue);">
-                        <td>${formatDate(pos.openTime)}</td>
-                        <td>${pos.pair}</td>
-                        <td><span class="badge info">${mode.name}</span></td>
-                        <td>${pos.type}</td>
-                        <td>${pos.entryPrice.toFixed(2)}</td>
-                        <td>-</td>
-                        <td>${pos.amount.toFixed(2)}</td>
-                        <td class="${currentPLAmount >= 0 ? 'green' : 'red'}">
-                            ${currentPLAmount >= 0 ? '+' : ''}${currentPLAmount.toFixed(2)}
-                        </td>
-                        <td class="${currentPL >= 0 ? 'green' : 'red'}">
-                            ${currentPL >= 0 ? '+' : ''}${currentPL.toFixed(2)}%
-                        </td>
-                        <td><span class="badge warning">EN COURS</span></td>
-                    </tr>
-                `;
-            }
-
-            state.trades.forEach(trade => {
-                const mode = CONFIG.TRADING_MODES[trade.mode];
-                html += `
-                    <tr>
-                        <td>${formatDate(trade.openTime)}</td>
-                        <td>${trade.pair}</td>
-                        <td><span class="badge info">${mode.name}</span></td>
-                        <td>${trade.type}</td>
-                        <td>${trade.entryPrice.toFixed(2)}</td>
-                        <td>${trade.exitPrice.toFixed(2)}</td>
-                        <td>${trade.amount.toFixed(2)}</td>
-                        <td class="${trade.profitLoss >= 0 ? 'green' : 'red'}">
-                            ${trade.profitLoss >= 0 ? '+' : ''}${trade.profitLoss.toFixed(2)}
-                        </td>
-                        <td class="${trade.priceChange >= 0 ? 'green' : 'red'}">
-                            ${trade.priceChange >= 0 ? '+' : ''}${trade.priceChange}%
-                        </td>
-                        <td>
-                            <span class="badge ${trade.profitLoss >= 0 ? 'success' : 'danger'}">
-                                ${trade.reason}
-                            </span>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            tbody.innerHTML = html;
-        }
-
-        function updateStats() {
-            const totalPL = state.trades.reduce((sum, t) => sum + t.profitLoss, 0);
-            const wins = state.trades.filter(t => t.profitLoss > 0).length;
-            const winRate = state.trades.length > 0 ? (wins / state.trades.length) * 100 : 0;
-
-            document.getElementById('totalProfitLoss').textContent = 
-                (totalPL >= 0 ? '+' : '') + ' + totalPL.toFixed(2);
-            document.getElementById('totalProfitLoss').className = 
-                `stat-value ${totalPL >= 0 ? 'green' : 'red'}`;
-            document.getElementById('winRate').textContent = winRate.toFixed(0) + '%';
-            document.getElementById('totalTrades').textContent = state.trades.length;
-        }
-
-        function updateChart() {
-            if (!state.chart || state.priceHistory.length === 0) return;
-
-            const labels = state.priceHistory.map(p => {
-                const date = new Date(p.time);
-                return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-            });
-
-            const data = state.priceHistory.map(p => p.price);
-
-            state.chart.data.labels = labels;
-            state.chart.data.datasets[0].data = data;
-            state.chart.update('none');
-        }
-
-        // ===== LOGGING =====
-        function addLog(type, message) {
-            const container = document.getElementById('logContainer');
-            const time = new Date().toLocaleTimeString('fr-FR');
-            
-            const logEntry = document.createElement('div');
-            logEntry.className = `log-entry ${type}`;
-            logEntry.innerHTML = `
-                <span class="log-time">[${time}]</span>
-                <span>${message}</span>
-            `;
-
-            container.insertBefore(logEntry, container.firstChild);
-
-            while (container.children.length > 50) {
-                container.removeChild(container.lastChild);
-            }
-        }
-
-        function clearLogs() {
-            document.getElementById('logContainer').innerHTML = '';
-            addLog('info', 'Logs effacés');
-        }
-
-        // ===== UTILITIES =====
-        function formatDate(date) {
-            return new Date(date).toLocaleString('fr-FR', {
-                day: '2-digit',
-                month: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }
-
-        function formatNumber(num) {
-            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-            return num.toFixed(0);
-        }
-
-        // ===== MANUAL TRADING =====
-        async function manualBuy() {
-            if (!state.isConnected) {
-                alert('Veuillez connecter votre wallet d\'abord !');
-                return;
-            }
-
-            if (state.openPosition) {
-                alert('Vous avez déjà une position ouverte !');
-                return;
-            }
-
-            const pair = document.getElementById('tradingPair').value;
-            const amount = parseFloat(document.getElementById('investmentAmount').value);
-
-            addLog('info', `📈 Achat manuel de ${pair}...`);
-            
-            await openPosition(pair, amount, state.currentPrice);
-        }
-
-        async function manualSell() {
-            if (!state.openPosition) {
-                alert('Aucune position ouverte à vendre !');
-                return;
-            }
-
-            addLog('info', `📉 Vente manuelle...`);
-            
-            await closePosition(state.currentPrice, 'Vente Manuelle');
-        }
-
-        // ===== CHART INITIALIZATION =====
-        function initChart() {
-            const ctx = document.getElementById('priceChart').getContext('2d');
-            
-            state.chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: [],
-                    datasets: [{
-                        label: 'Prix',
-                        data: [],
-                        borderColor: 'rgb(59, 130, 246)',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        borderWidth: 2,
-                        tension: 0.4,
-                        fill: true,
-                        pointRadius: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    interaction: {
-                        intersect: false,
-                        mode: 'index'
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(17, 24, 39, 0.9)',
-                            titleColor: '#f9fafb',
-                            bodyColor: '#d1d5db',
-                            borderColor: '#374151',
-                            borderWidth: 1,
-                            padding: 12,
-                            displayColors: false
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: true,
-                            grid: {
-                                color: 'rgba(55, 65, 81, 0.3)'
-                            },
-                            ticks: {
-                                color: '#9ca3af',
-                                maxTicksLimit: 10
-                            }
-                        },
-                        y: {
-                            display: true,
-                            grid: {
-                                color: 'rgba(55, 65, 81, 0.3)'
-                            },
-                            ticks: {
-                                color: '#9ca3af',
-                                callback: function(value) {
-                                    return ' + value.toFixed(2);
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        // ===== MODE DESCRIPTION =====
-        function updateModeDescription() {
-            const modeSelect = document.getElementById('tradingMode');
-            const modeDescription = document.getElementById('modeDescription');
-            const mode = CONFIG.TRADING_MODES[modeSelect.value];
-
-            const descriptions = {
-                SCALPING: `<strong>⚡ Scalping</strong> - Trades ultra-rapides pour profits de ${mode.minProfit}-${mode.maxProfit}%. Mise à jour toutes les ${mode.interval / 1000} secondes. Stop Loss: ${mode.stopLoss}%, Trailing Stop: ${mode.trailingDistance}%. Idéal pour haute volatilité.`,
-                DAY: `<strong>📊 Day Trading</strong> - Stratégie intraday avec objectifs de ${mode.minProfit}-${mode.maxProfit}%. Mise à jour toutes les ${mode.interval / 60000} minutes. Stop Loss: ${mode.stopLoss}%, Trailing Stop: ${mode.trailingDistance}%. Balance risque/rendement optimale.`,
-                SWING: `<strong>📈 Swing Trading</strong> - Positions moyennes/longues pour ${mode.minProfit}-${mode.maxProfit}% de gains. Mise à jour toutes les ${mode.interval / 60000} minutes. Stop Loss: ${mode.stopLoss}%, Trailing Stop: ${mode.trailingDistance}%. Pour traders patients.`
-            };
-
-            modeDescription.innerHTML = descriptions[modeSelect.value];
-        }
-
-        // ===== INITIALIZATION =====
+        // Initialize
         function init() {
-            document.getElementById('connectWalletBtn').addEventListener('click', connectWallet);
-            document.getElementById('disconnectWalletBtn').addEventListener('click', disconnectWallet);
-            document.getElementById('startTradingBtn').addEventListener('click', startTrading);
-            document.getElementById('stopTradingBtn').addEventListener('click', stopTrading);
-            document.getElementById('startDcaBtn').addEventListener('click', startDCA);
-            document.getElementById('stopDcaBtn').addEventListener('click', stopDCA);
-            document.getElementById('manualBuyBtn').addEventListener('click', manualBuy);
-            document.getElementById('manualSellBtn').addEventListener('click', manualSell);
-            document.getElementById('tradingMode').addEventListener('change', updateModeDescription);
+            console.log('Initializing...');
 
-            initChart();
-            updateModeDescription();
+            const connectBtn = document.getElementById('connectBtn');
+            const disconnectBtn = document.getElementById('disconnectBtn');
+            const buyBtn = document.getElementById('buyBtn');
+            const sellBtn = document.getElementById('sellBtn');
 
-            addLog('info', '🐱 JERCAT Pro Bot initialisé - VERSION CORRIGÉE v2');
-            addLog('success', '✅ Transactions blockchain activées avec CONFIRMATIONS MetaMask');
-            addLog('info', `💎 Frais: ${CONFIG.TRADE_FEE_BNB} BNB par trade + 0.10% commission sur profits`);
-            addLog('info', '🎯 3 modes de trading disponibles: Scalping, Day Trading, Swing Trading');
-            addLog('warning', 'Assurez-vous d\'avoir au moins 0.01 BNB pour les frais de gas');
-            addLog('warning', 'Connectez votre wallet pour commencer');
+            if (connectBtn) {
+                connectBtn.addEventListener('click', connectWallet);
+                console.log('Connect button listener added');
+            }
+
+            if (disconnectBtn) {
+                disconnectBtn.addEventListener('click', disconnectWallet);
+            }
+
+            if (buyBtn) {
+                buyBtn.addEventListener('click', executeBuy);
+            }
+
+            if (sellBtn) {
+                sellBtn.addEventListener('click', executeSell);
+            }
+
+            addLog('info', '🐱 JERCAT Pro Bot initialisé');
+            addLog('success', '✅ Version complète avec MetaMask');
+            addLog('info', `💎 Frais: ${CONFIG.TRADE_FEE} BNB par transaction`);
+            addLog('warning', '⚠️ Connectez votre wallet pour commencer');
         }
 
+        // Start when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', init);
         } else {
