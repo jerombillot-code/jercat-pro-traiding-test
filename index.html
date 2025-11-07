@@ -822,6 +822,20 @@
                     addLog('warning', '⚠️ Attention: Vous n\'êtes pas sur Binance Smart Chain. Recommandé pour des frais réduits.');
                 }
 
+                // Listen for account changes
+                window.ethereum.on('accountsChanged', function (accounts) {
+                    if (accounts.length === 0) {
+                        disconnectWallet();
+                    } else {
+                        location.reload();
+                    }
+                });
+
+                // Listen for chain changes
+                window.ethereum.on('chainChanged', function (chainId) {
+                    location.reload();
+                });
+
             } catch (error) {
                 console.error('Error connecting wallet:', error);
                 addLog('error', 'Erreur de connexion: ' + error.message);
